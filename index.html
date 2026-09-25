@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Benchmark: Portafolio Renta Fija vs. Depto. Alquiler en Caballito</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --card-sub: #f1f5f9;
+      --border: #e2e8f0;
+      --border-light: #edf2f7;
+      --border-hover: #cbd5e1;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --ons: #0284c7;
+      --ons-light: #e0f2fe;
+      --cer: #7c3aed;
+      --cer-light: #ede9fe;
+      --re: #d97706;
+      --re-light: #fef3c7;
+      --secondary: #059669;
+      --danger: #dc2626;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.06);
+      --shadow-lg: 0 10px 25px -4px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 24px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 12px;
+      }
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      width: 100%;
+      min-width: 0;
+    }
+
+    header {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .header-info h1 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    @media (max-width: 640px) {
+      .header-info h1 {
+        font-size: 1.25rem;
+      }
+    }
+
+    .header-info p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+
+    .badge-pill {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      background: var(--cer-light);
+      color: var(--cer);
+      border: 1px solid rgba(124, 58, 237, 0.25);
+      white-space: normal;
+      text-align: center;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      min-width: 0;
+    }
+
+    @media (max-width: 880px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      min-width: 0;
+    }
+
+    @media (max-width: 640px) {
+      .hero-card {
+        padding: 14px;
+      }
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .hero-card.tripartito::before {
+      background: linear-gradient(90deg, var(--ons), var(--cer));
+    }
+    .hero-card.re::before {
+      background: var(--re);
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      border: 1px solid transparent;
+    }
+
+    .hero-card.tripartito .hero-tag {
+      background: var(--cer-light);
+      color: var(--cer);
+      border-color: rgba(124, 58, 237, 0.2);
+    }
+    .hero-card.re .hero-tag {
+      background: var(--re-light);
+      color: #b45309;
+      border-color: rgba(217, 119, 6, 0.2);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    @media (max-width: 520px) {
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .metric-item {
+      background: var(--card-sub);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+      transition: border-color 0.15s ease;
+    }
+
+    .metric-item:hover {
+      border-color: var(--border-hover);
+    }
+
+    /* Agrupación visual de conceptos análogos */
+    .metric-item.grupo-inversion {
+      background-color: #f0f9ff; /* Azul muy suave */
+      border-color: #e0f2fe;
+    }
+    .metric-item.grupo-flujo {
+      background-color: #f0fdf4; /* Verde muy suave */
+      border-color: #dcfce7;
+    }
+    .metric-item.grupo-acumulado {
+      background-color: #fefce8; /* Amarillo/Naranja muy suave */
+      border-color: #fef3c7;
+    }
+    .metric-item.grupo-valuacion {
+      background-color: #f5f3ff; /* Violeta muy suave */
+      border-color: #ede9fe;
+    }
+
+    .m-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .m-val {
+      font-size: 1.35rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      word-break: break-word;
+    }
+
+    .hero-card.tripartito .m-val { color: var(--cer); }
+    .hero-card.re .m-val { color: #b45309; }
+
+    .m-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    .main-panel {
+      display: grid;
+      grid-template-columns: 2fr 1.15fr;
+      gap: 20px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      min-width: 0;
+    }
+
+    @media (max-width: 980px) {
+      .main-panel {
+        grid-template-columns: 1fr;
+        padding: 16px;
+      }
+    }
+
+    .chart-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      min-width: 0;
+      width: 100%;
+    }
+
+    .chart-bar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chart-heading {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: 14px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .legend-bullet {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+
+    .canvas-container {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      min-height: 280px;
+    }
+
+    @media (max-width: 640px) {
+      .canvas-container {
+        height: 300px;
+      }
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: crosshair;
+      touch-action: none;
+    }
+
+    .controls-wrapper {
+      background: var(--card-sub);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .ctrl-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ctrl-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+    }
+
+    .ctrl-name {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .ctrl-display {
+      font-weight: 700;
+      color: var(--cer);
+      background: #ffffff;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Custom Webkit/Moz Slider Styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 8px;
+      background: #cbd5e1;
+      border-radius: 9999px;
+      outline: none;
+      transition: background 0.2s ease;
+      cursor: pointer;
+    }
+
+    input[type=range]:hover {
+      background: #94a3b8;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3px solid var(--cer);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(124, 58, 237, 0.3), 0 1px 2px rgba(0,0,0,0.1);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    input[type=range]::-webkit-slider-thumb:hover {
+      transform: scale(1.16);
+      box-shadow: 0 4px 10px rgba(124, 58, 237, 0.4);
+    }
+
+    input[type=range]:active::-webkit-slider-thumb {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 5px rgba(124, 58, 237, 0.2);
+    }
+
+    input[type=range]::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3px solid var(--cer);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(124, 58, 237, 0.3);
+      transition: transform 0.15s ease;
+    }
+
+    input[type=range]::-moz-range-thumb:hover {
+      transform: scale(1.16);
+    }
+
+    /* Highlight Vacancy Slider */
+    #sl-vacancy::-webkit-slider-thumb {
+      border-color: var(--re);
+      box-shadow: 0 2px 6px rgba(217, 119, 6, 0.3);
+    }
+    #sl-vacancy::-webkit-slider-thumb:hover {
+      box-shadow: 0 4px 10px rgba(217, 119, 6, 0.45);
+    }
+    #sl-vacancy:active::-webkit-slider-thumb {
+      box-shadow: 0 0 0 5px rgba(217, 119, 6, 0.2);
+    }
+    #val-vacancy {
+      color: #b45309;
+    }
+
+    .stress-card {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 11px 13px;
+      font-size: 0.77rem;
+      color: #92400e;
+      line-height: 1.5;
+    }
+
+    .friction-card {
+      background: var(--cer-light);
+      border: 1px solid #ddd6fe;
+      border-radius: 8px;
+      padding: 11px 13px;
+      font-size: 0.77rem;
+      color: #5b21b6;
+      line-height: 1.5;
+    }
+
+    .table-panel {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .table-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .table-heading {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .table-scroller {
+      overflow-x: auto;
+      max-height: 500px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      text-align: right;
+      background: #ffffff;
+    }
+
+    thead th {
+      background-color: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      padding: 12px 14px;
+      position: sticky;
+      top: 0;
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    thead th:first-child {
+      text-align: left;
+    }
+
+    tfoot {
+      position: sticky;
+      bottom: 0;
+      z-index: 3;
+    }
+
+    tfoot tr {
+      background-color: #f1f5f9;
+      border-top: 2px solid var(--border-hover);
+      font-weight: 700;
+    }
+
+    tfoot td {
+      padding: 12px 14px;
+      font-variant-numeric: tabular-nums;
+      color: var(--text);
+      white-space: nowrap;
+      border-bottom: none;
+    }
+
+    tfoot td:first-child {
+      text-align: left;
+    }
+
+    tbody td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+      color: #334155;
+    }
+
+    tbody td:first-child {
+      text-align: left;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    #tooltip {
+      position: absolute;
+      background: #ffffff;
+      border: 1px solid var(--cer);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.8rem;
+      color: var(--text);
+      pointer-events: none;
+      display: none;
+      z-index: 20;
+      box-shadow: var(--shadow-lg);
+      line-height: 1.45;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="header-info">
+      <h1>Benchmark: Portafolio Renta Fija vs. Depto. Alquiler en Caballito</h1>
+      <p>Base: USD 100.000 en t=0. Flujo mensual para vivir (sin reinversión) y stress test inmobiliario (vacancia de 0% a 20%, mes 25 en blanco y 10% expensas extraordinarias).</p>
+    </div>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+      <div class="badge-pill">33% DLK | 33% TAMAR | 34% Boncer TZXM9</div>
+      <div class="badge-pill">Supuesto TC Base: 1524</div>
+      <div class="badge-pill">Supuesto Inversión Inicial Total: USD 100.515</div>
+    </div>
+  </header>
+
+  <!-- Hero Comparison Cards -->
+  <div class="hero-grid">
+    <!-- Tripartito Portfolio -->
+    <div class="hero-card tripartito">
+      <div class="hero-top">
+        <strong style="font-size: 1.15rem; color: var(--text);">Portafolio RF (DLK + TAMAR + CER)</strong>
+        <span class="hero-tag">TZXM9: CER + 10,9% Real</span>
+      </div>
+      <div class="metric-grid">
+        <div class="metric-item grupo-inversion">
+          <span class="m-label">Capital Efectivo Invertido</span>
+          <span class="m-val" id="kpi-tri-entry">$153.230.000</span>
+          <span class="m-sub">Neto de $770.000 (0,5% fee ALyC)</span>
+        </div>
+        <div class="metric-item grupo-flujo">
+          <span class="m-label">Renta Mensual Promedio</span>
+          <span class="m-val" id="kpi-tri-avg">-</span>
+          <span class="m-sub">Consumido mes a mes para vivir</span>
+        </div>
+        <div class="metric-item grupo-acumulado">
+          <span class="m-label">Total Retirado Acumulado</span>
+          <span class="m-val" id="kpi-tri-total" style="color: var(--cer);">-</span>
+          <span class="m-sub">Cash flow acumulado consumido</span>
+        </div>
+        <div class="metric-item grupo-valuacion">
+          <span class="m-label">Valuación Capital Final</span>
+          <span class="m-val" id="kpi-tri-val">-</span>
+          <span class="m-sub">CER + DLK + TAMAR (neto 0,5% fee)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Real Estate Caballito -->
+    <div class="hero-card re">
+      <div class="hero-top">
+        <strong style="font-size: 1.15rem; color: var(--text);">Depto 2 Amb (Caballito - Stress Test)</strong>
+        <span class="hero-tag">6,5% Cierre + NOI Neto</span>
+      </div>
+      <div class="metric-grid">
+        <div class="metric-item grupo-inversion">
+          <span class="m-label">Compra Base (USD 2.420 / m²)</span>
+          <span class="m-val" id="kpi-re-entry">USD 94.380</span>
+          <span class="m-sub">39 m² + 6,5% cierre = USD 100.515 total</span>
+        </div>
+        <div class="metric-item grupo-flujo">
+          <span class="m-label">NOI Mensual Promedio</span>
+          <span class="m-val" id="kpi-re-avg">-</span>
+          <span class="m-sub">Neto de vacancia y expensas extra</span>
+        </div>
+        <div class="metric-item grupo-acumulado">
+          <span class="m-label">Total Alquileres Netos (NOI)</span>
+          <span class="m-val" id="kpi-re-total" style="color: var(--secondary);">-</span>
+          <span class="m-sub">Flujo real de bolsillo para vivir</span>
+        </div>
+        <div class="metric-item grupo-valuacion">
+          <span class="m-label">Valuación Inmueble Final</span>
+          <span class="m-val" id="kpi-re-val">USD 99.156</span>
+          <span class="m-sub">+2,5% apreciación anual s/USD 94.380</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-panel">
+    <div class="chart-box">
+      <div class="chart-bar-header">
+        <span class="chart-heading">Flujo Mensual Retirado para Vivir: Portafolio Tripartito vs. NOI Caballito</span>
+        <div class="chart-legend">
+          <span class="legend-bullet"><span class="dot" style="background: var(--cer);"></span> Tripartito (ARS)</span>
+          <span class="legend-bullet"><span class="dot" style="background: var(--re);"></span> NOI Inmueble (ARS)</span>
+        </div>
+      </div>
+      <div class="canvas-container">
+        <canvas id="flowCanvas"></canvas>
+        <div id="tooltip"></div>
+      </div>
+    </div>
+
+    <!-- Controls Panel with enhanced sliders -->
+    <div class="controls-wrapper">
+      <div class="ctrl-group">
+        <div class="ctrl-top">
+          <span class="ctrl-name">Horizonte de Análisis</span>
+          <span class="ctrl-display" id="val-horizon">36 Meses</span>
+        </div>
+        <input type="range" id="sl-horizon" min="24" max="48" step="12" value="36">
+      </div>
+
+      <div class="ctrl-group">
+        <div class="ctrl-top">
+          <span class="ctrl-name">Stress Test: Vacancia Adicional Inmueble</span>
+          <span class="ctrl-display" id="val-vacancy">0%</span>
+        </div>
+        <input type="range" id="sl-vacancy" min="0" max="20" step="1" value="0">
+      </div>
+
+      <div class="ctrl-group">
+        <div class="ctrl-top">
+          <span class="ctrl-name">Rendimiento Real TZXM9 (% s/ CER)</span>
+          <span class="ctrl-display" id="val-cer-rate">10,9%</span>
+        </div>
+        <input type="range" id="sl-cer-rate" min="5" max="15" step="0.1" value="10.9">
+      </div>
+
+      <div class="ctrl-group">
+        <div class="ctrl-top">
+          <span class="ctrl-name">Inflación Anual Proyectada IPC/CER (%)</span>
+          <span class="ctrl-display" id="val-ipc">18,0%</span>
+        </div>
+        <input type="range" id="sl-ipc" min="8" max="40" step="1" value="18.0">
+      </div>
+
+      <div class="ctrl-group">
+        <div class="ctrl-top">
+          <span class="ctrl-name">Tasa TAMAR + Spread (% TNA)</span>
+          <span class="ctrl-display" id="val-tamar">26,0%</span>
+        </div>
+        <input type="range" id="sl-tamar" min="15" max="45" step="0.5" value="26.0">
+      </div>
+
+      <div class="ctrl-group">
+        <div class="ctrl-top">
+          <span class="ctrl-name">Crawling Peg Mensual DLK (%)</span>
+          <span class="ctrl-display" id="val-crawl">1,5%</span>
+        </div>
+        <input type="range" id="sl-crawl" min="0" max="4" step="0.1" value="1.5">
+      </div>
+
+      <div class="stress-card">
+        <strong>Condiciones del Stress Test Inmobiliario:</strong><br>
+        • <strong>Costos ocultos fijos:</strong> -10% automático por expensas extraordinarias y mantenimiento.<br>
+        • <strong>Recambio de contrato:</strong> Mes 25 con vacancia total ($0 de ingreso).<br>
+        • <strong>Vacancia estructural:</strong> Reducción directa adicional del 0% al 20% regulable con el slider.
+      </div>
+
+      <div class="friction-card">
+        <strong>Ponderación Portafolio Tripartito:</strong><br>
+        • <strong>33% DLK:</strong> Cobertura cambiaria sobre A3500 ($1.519).<br>
+        • <strong>33% TAMAR:</strong> Tasa flotante bancaria mayorista.<br>
+        • <strong>34% Boncer TZXM9:</strong> Capital indexado por CER + 10,9% TNA real.
+      </div>
+    </div>
+  </div>
+
+  <div class="table-panel">
+    <div class="table-top">
+      <span class="table-heading">Cronograma Comparativo Mes a Mes</span>
+      <span style="font-size:0.8rem; color:var(--text-muted);">Valores en Pesos Argentinos (ARS) retirados para vivir</span>
+    </div>
+    <div class="table-scroller">
+      <table>
+        <thead>
+          <tr>
+            <th>Mes</th>
+            <th>Pata DLK (33%)</th>
+            <th>Pata TAMAR (33%)</th>
+            <th>Boncer TZXM9 (34%)</th>
+            <th>Total Port. RF</th>
+            <th>NOI Depto Caballito</th>
+            <th>Diferencial (Tri - RE)</th>
+            <th>Acum. Port. RF</th>
+            <th>Acum. NOI RE</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- Dynamically inserted -->
+        </tbody>
+        <tfoot id="table-foot">
+          <!-- Dynamically inserted summary totals -->
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  const dlkCoupons = [
+    0.025, 0.020, 0.0175, 0.025, 0.020, 0.0175, 0.025, 0.020, 0.0175, 0.025, 0.020, 0.0175,
+    0.025, 0.020, 0.0175, 0.025, 0.020, 0.0175, 0.025, 0.020, 0.0175, 0.025, 0.020, 0.0175,
+    0.025, 0.020, 0.0175, 0.025, 0.020, 0.0175, 0.025, 0.020, 0.0175, 0.025, 0.020, 0.0175,
+    0.025, 0.020, 0.0175, 0.025, 0.020, 0.0175, 0.025, 0.020, 0.0175, 0.025, 0.020, 0.0175
+  ];
+
+  // DOM Elements
+  const slHorizon = document.getElementById('sl-horizon');
+  const slVacancy = document.getElementById('sl-vacancy');
+  const slCerRate = document.getElementById('sl-cer-rate');
+  const slIpc = document.getElementById('sl-ipc');
+  const slTamar = document.getElementById('sl-tamar');
+  const slCrawl = document.getElementById('sl-crawl');
+
+  const valHorizon = document.getElementById('val-horizon');
+  const valVacancy = document.getElementById('val-vacancy');
+  const valCerRate = document.getElementById('val-cer-rate');
+  const valIpc = document.getElementById('val-ipc');
+  const valTamar = document.getElementById('val-tamar');
+  const valCrawl = document.getElementById('val-crawl');
+
+  const kpiTriEntry = document.getElementById('kpi-tri-entry');
+  const kpiTriAvg = document.getElementById('kpi-tri-avg');
+  const kpiTriTotal = document.getElementById('kpi-tri-total');
+  const kpiTriVal = document.getElementById('kpi-tri-val');
+
+  const kpiReEntry = document.getElementById('kpi-re-entry');
+  const kpiReAvg = document.getElementById('kpi-re-avg');
+  const kpiReTotal = document.getElementById('kpi-re-total');
+  const kpiReVal = document.getElementById('kpi-re-val');
+
+  const tableBody = document.getElementById('table-body');
+  const tableFoot = document.getElementById('table-foot');
+  const canvas = document.getElementById('flowCanvas');
+  const ctx = canvas.getContext('2d');
+  const tooltip = document.getElementById('tooltip');
+
+  let currentMonthlyData = [];
+
+  function fmtARS(val) {
+    return '$' + Math.round(val).toLocaleString('es-AR');
+  }
+
+  function fmtUSD(val) {
+    return 'USD ' + Math.round(val).toLocaleString('en-US');
+  }
+
+  function recalculate() {
+    const horizon = parseInt(slHorizon.value);
+    const vacancyRate = parseFloat(slVacancy.value) / 100;
+    const cerSpread = parseFloat(slCerRate.value) / 100;
+    const annualIpc = parseFloat(slIpc.value) / 100;
+    const tamarRate = parseFloat(slTamar.value) / 100;
+    const crawlRate = parseFloat(slCrawl.value) / 100;
+
+    // Macro & Real Estate constants
+    const mep = 1540;
+    const a3500Base = 1519;
+    const initialRent = 870000;
+    const deptoPurchasePriceUSD = 94380; // 39m2 * USD 2420
+
+    // Display labels
+    valHorizon.innerText = horizon + ' Meses';
+    valVacancy.innerText = (vacancyRate * 100).toFixed(0) + '%';
+    valCerRate.innerText = (cerSpread * 100).toFixed(1).replace('.', ',') + '%';
+    valIpc.innerText = (annualIpc * 100).toFixed(1).replace('.', ',') + '%';
+    valTamar.innerText = (tamarRate * 100).toFixed(1).replace('.', ',') + '%';
+    valCrawl.innerText = (crawlRate * 100).toFixed(1).replace('.', ',') + '%';
+
+    // Capital in ARS net of 0.5% ALyC fee
+    const grossCapitalARS = 100000 * mep;
+    const netCapitalTripartito = grossCapitalARS * (1 - 0.005); // $153.230.000
+
+    // Tri-party allocation: 33% DLK, 33% TAMAR, 34% CER
+    const poolDLK_ARS = netCapitalTripartito * 0.33;
+    const poolTAMAR_ARS = netCapitalTripartito * 0.33;
+    const poolCER_ARS = netCapitalTripartito * 0.34;
+
+    // DLK face value in USD
+    const dlkFaceUSD = poolDLK_ARS / a3500Base;
+
+    // Monthly inflation rate derived from annual IPC
+    const monthlyIpcRate = Math.pow(1 + annualIpc, 1 / 12) - 1;
+
+    // TAMAR monthly equivalent flow
+    const tamarQuarterlyPayment = poolTAMAR_ARS * (tamarRate / 4);
+
+    kpiTriEntry.innerText = fmtARS(netCapitalTripartito);
+    kpiReEntry.innerText = fmtUSD(deptoPurchasePriceUSD);
+
+    currentMonthlyData = [];
+    let cumTri = 0;
+    let cumRe = 0;
+    let sumDlk = 0;
+    let sumTamar = 0;
+    let sumCer = 0;
+    let sumSpread = 0;
+
+    tableBody.innerHTML = '';
+    tableFoot.innerHTML = '';
+
+    for (let m = 1; m <= horizon; m++) {
+      // 1. DLK Component
+      const tcProyectado = a3500Base * Math.pow(1 + crawlRate, m);
+      const couponDlk = dlkCoupons[m - 1];
+      const dlkARS = (dlkFaceUSD * (couponDlk / 4)) * tcProyectado;
+
+      // 2. TAMAR Component
+      const tamarARS = tamarQuarterlyPayment;
+
+      // 3. Boncer TZXM9 Component
+      const cerFactor = Math.pow(1 + monthlyIpcRate, m);
+      const adjustedCerPrincipal = poolCER_ARS * cerFactor;
+      const cerARS = adjustedCerPrincipal * (cerSpread / 12);
+
+      const totalTriMonth = dlkARS + tamarARS + cerARS;
+
+      // 4. Real Estate Depto Caballito with Stress Test
+      const currentYear = Math.floor((m - 1) / 12);
+      let grossRent = initialRent * Math.pow(1 + annualIpc, currentYear);
+      let effectiveRent = grossRent;
+
+      // Stress Test Rule 1: Mes 25 (renovación de contrato con 1 mes de vacancia total)
+      if (m === 25) {
+        effectiveRent = 0;
+      } else {
+        // Stress Test Rule 2: Deducción fija del 10% por expensas extraordinarias y mantenimiento
+        effectiveRent *= 0.90;
+        // Stress Test Rule 3: Vacancia estructural adicional según el slider
+        effectiveRent *= (1 - vacancyRate);
+      }
+
+      cumTri += totalTriMonth;
+      cumRe += effectiveRent;
+      const spread = totalTriMonth - effectiveRent;
+
+      sumDlk += dlkARS;
+      sumTamar += tamarARS;
+      sumCer += cerARS;
+      sumSpread += spread;
+
+      currentMonthlyData.push({
+        m,
+        tri: totalTriMonth,
+        dlk: dlkARS,
+        tamar: tamarARS,
+        cer: cerARS,
+        re: effectiveRent,
+        spread,
+        cumTri,
+        cumRe
+      });
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><strong>M${m}</strong></td>
+        <td style="color: var(--ons); font-weight: 500;">${fmtARS(dlkARS)}</td>
+        <td style="color: #0891b2; font-weight: 500;">${fmtARS(tamarARS)}</td>
+        <td style="color: var(--cer); font-weight: 600;">${fmtARS(cerARS)}</td>
+        <td style="color: #6d28d9; font-weight: 700;">${fmtARS(totalTriMonth)}</td>
+        <td style="color: ${effectiveRent === 0 ? 'var(--danger)' : '#b45309'}; font-weight: 600;">${fmtARS(effectiveRent)}</td>
+        <td style="color: ${spread >= 0 ? 'var(--secondary)' : 'var(--danger)'}; font-weight: 600;">${fmtARS(spread)}</td>
+        <td>${fmtARS(cumTri)}</td>
+        <td>${fmtARS(cumRe)}</td>
+      `;
+      tableBody.appendChild(tr);
+    }
+
+    // Render Sticky Summary Footer Row with Total Cumulative Spread
+    const tf = document.createElement('tr');
+    tf.innerHTML = `
+      <td><strong>TOTALES</strong></td>
+      <td style="color: var(--ons);">${fmtARS(sumDlk)}</td>
+      <td style="color: #0891b2;">${fmtARS(sumTamar)}</td>
+      <td style="color: var(--cer);">${fmtARS(sumCer)}</td>
+      <td style="color: #6d28d9; font-weight: 800;">${fmtARS(cumTri)}</td>
+      <td style="color: #b45309; font-weight: 800;">${fmtARS(cumRe)}</td>
+      <td style="color: ${sumSpread >= 0 ? 'var(--secondary)' : 'var(--danger)'}; font-weight: 800; background: ${sumSpread >= 0 ? 'rgba(5, 150, 105, 0.08)' : 'rgba(220, 38, 38, 0.08)'};">${fmtARS(sumSpread)}</td>
+      <td style="color: #6d28d9;">${fmtARS(cumTri)}</td>
+      <td style="color: #b45309;">${fmtARS(cumRe)}</td>
+    `;
+    tableFoot.appendChild(tf);
+
+    const tcA3500_End = a3500Base * Math.pow(1 + crawlRate, horizon);
+    const dlkCapital_End = dlkFaceUSD * tcA3500_End;
+    const tamarCapital_End = poolTAMAR_ARS;
+    const cerCapital_End = poolCER_ARS * Math.pow(1 + monthlyIpcRate, horizon);
+    const grossTriVal_End = dlkCapital_End + tamarCapital_End + cerCapital_End;
+    const netTriVal_End = grossTriVal_End * (1 - 0.005);
+
+    const years = horizon / 12;
+    const deptoValUSD_End = deptoPurchasePriceUSD * Math.pow(1 + 0.025, years);
+
+    kpiTriAvg.innerText = fmtARS(cumTri / horizon);
+    kpiTriTotal.innerText = fmtARS(cumTri);
+    kpiTriVal.innerText = fmtARS(netTriVal_End);
+
+    kpiReAvg.innerText = fmtARS(cumRe / horizon);
+    kpiReTotal.innerText = fmtARS(cumRe);
+    kpiReVal.innerText = fmtUSD(deptoValUSD_End);
+
+    drawChart(currentMonthlyData);
+  }
+
+  function resizeCanvas() {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width === 0) return;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = Math.round(rect.width * dpr);
+    canvas.height = Math.round(rect.height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function drawChart(data) {
+    if (!data || data.length === 0) return;
+    resizeCanvas();
+
+    const rect = canvas.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+    ctx.clearRect(0, 0, w, h);
+
+    // Canvas light background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, w, h);
+
+    const isMobile = w < 540;
+    const padLeft = isMobile ? 55 : 75;
+    const padRight = isMobile ? 12 : 25;
+    const padTop = 30;
+    const padBottom = 40;
+
+    const plotW = Math.max(10, w - padLeft - padRight);
+    const plotH = Math.max(10, h - padTop - padBottom);
+
+    const maxVal = Math.max(...data.map(d => Math.max(d.tri, d.re))) * 1.2;
+
+    // Grid lines & Y labels in light mode
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+    ctx.fillStyle = '#64748b';
+    ctx.font = (isMobile ? '10px' : '11px') + ' -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'right';
+
+    const steps = isMobile ? 3 : 4;
+    for (let i = 0; i <= steps; i++) {
+      const v = (maxVal / steps) * i;
+      const y = padTop + plotH - (i / steps) * plotH;
+      ctx.beginPath();
+      ctx.moveTo(padLeft, y);
+      ctx.lineTo(w - padRight, y);
+      ctx.stroke();
+      ctx.fillText('$' + (v / 1000000).toFixed(1) + 'M', padLeft - 6, y + 4);
+    }
+
+    const n = data.length;
+    const barGroupW = plotW / n;
+    const bw = Math.max(2, (barGroupW * 0.42));
+    const gap = Math.max(1, barGroupW * 0.04);
+
+    data.forEach((d, idx) => {
+      const groupStart = padLeft + idx * barGroupW + (barGroupW - (bw * 2 + gap)) / 2;
+
+      // Tripartito Bar (CER / DLK / TAMAR)
+      const hTri = (d.tri / maxVal) * plotH;
+      ctx.fillStyle = '#7c3aed';
+      ctx.fillRect(groupStart, padTop + plotH - hTri, bw, hTri);
+
+      // Real Estate Bar (NOI)
+      const hRe = (d.re / maxVal) * plotH;
+      ctx.fillStyle = d.re === 0 ? '#dc2626' : '#d97706';
+      ctx.fillRect(groupStart + bw + gap, padTop + plotH - hRe, bw, hRe);
+
+      // X Axis labels
+      let labelInterval = 2;
+      if (w < 420) labelInterval = 6;
+      else if (w < 640) labelInterval = 4;
+      else if (n > 36) labelInterval = 4;
+      else if (n > 24) labelInterval = 3;
+
+      if ((idx + 1) % labelInterval === 0 || idx === 0) {
+        ctx.fillStyle = '#64748b';
+        ctx.textAlign = 'center';
+        ctx.fillText('M' + d.m, groupStart + bw + (gap / 2), h - padBottom + 16);
+      }
+    });
+  }
+
+  function handleInteraction(clientX, clientY) {
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = clientX - rect.left;
+    const isMobile = rect.width < 540;
+    const padLeft = isMobile ? 55 : 75;
+    const padRight = isMobile ? 12 : 25;
+    const plotW = rect.width - padLeft - padRight;
+    const barGroupW = plotW / currentMonthlyData.length;
+
+    const idx = Math.floor((mouseX - padLeft) / barGroupW);
+
+    if (idx >= 0 && idx < currentMonthlyData.length) {
+      const item = currentMonthlyData[idx];
+      tooltip.style.display = 'block';
+      tooltip.innerHTML = `
+        <strong style="color:#0f172a; font-size:0.85rem;">Mes ${item.m}</strong><br>
+        • <span style="color:#7c3aed; font-weight:600;">Portafolio Tripartito:</span> ${fmtARS(item.tri)}<br>
+        &nbsp;&nbsp;<small style="color:#64748b;">(DLK: ${fmtARS(item.dlk)} | TAMAR: ${fmtARS(item.tamar)} | CER: ${fmtARS(item.cer)})</small><br>
+        • <span style="color:#b45309; font-weight:600;">NOI Depto Caballito:</span> ${fmtARS(item.re)}<br>
+        • <strong>Diferencia:</strong> <span style="color:${item.spread >= 0 ? '#059669' : '#dc2626'}; font-weight:700;">${fmtARS(item.spread)}</span>
+      `;
+
+      let tooltipX = mouseX + 15;
+      let tooltipY = clientY - rect.top - 30;
+
+      if (tooltipX + 220 > rect.width) {
+        tooltipX = Math.max(10, mouseX - 230);
+      }
+      if (tooltipY < 10) {
+        tooltipY = clientY - rect.top + 20;
+      }
+
+      tooltip.style.left = tooltipX + 'px';
+      tooltip.style.top = tooltipY + 'px';
+    } else {
+      tooltip.style.display = 'none';
+    }
+  }
+
+  canvas.addEventListener('mousemove', (e) => {
+    handleInteraction(e.clientX, e.clientY);
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    tooltip.style.display = 'none';
+  });
+
+  canvas.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches[0]) {
+      handleInteraction(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  canvas.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches[0]) {
+      handleInteraction(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    drawChart(currentMonthlyData);
+  });
+
+  // Attach event listeners to all sliders
+  [slHorizon, slVacancy, slCerRate, slIpc, slTamar, slCrawl].forEach(el => {
+    el.addEventListener('input', recalculate);
+  });
+
+  // Initial calculation on load
+  recalculate();
+</script>
+</body>
+</html>
