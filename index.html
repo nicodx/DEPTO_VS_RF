@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>RF vs Real Estate — Portafolio Tripartito vs. Depto Caballito</title>
+<title>RF vs Real Estate — Cashflow Deflactado</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -19,37 +19,30 @@ body{background:var(--stage);color:var(--ink);padding:28px 16px;line-height:1.4}
 .stage{max-width:1280px;margin:0 auto}
 .console{background:var(--panel);border-radius:var(--radius);padding:32px;display:flex;flex-direction:column;gap:26px}
 @media(max-width:700px){.console{padding:20px;border-radius:20px}}
-
-/* Topbar */
 .topbar{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px}
 .brand{display:flex;align-items:center;gap:10px}
 .brand-dot{width:14px;height:14px;border-radius:4px;background:var(--ink)}
 .brand-name{font-weight:800;font-size:1.05rem;letter-spacing:-0.01em}
 .badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
 .badge{background:var(--card);border:1px solid var(--line);border-radius:9999px;padding:7px 14px;font-size:0.72rem;font-weight:600;color:var(--ink-soft)}
-
-/* Hero */
 .hero{display:flex;flex-direction:column;gap:6px}
 .hero-label{font-size:0.85rem;color:var(--ink-soft);font-weight:600}
 .hero-number{font-size:clamp(3rem,10vw,6.4rem);font-weight:900;letter-spacing:-0.035em;line-height:0.95;font-variant-numeric:tabular-nums}
+.hero-verdict{font-size:1rem;font-weight:800;margin-top:2px}
 .hero-foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:6px}
 .hero-note{font-size:0.86rem;color:var(--ink-soft)}
 .segmented{display:flex;background:var(--card);border-radius:9999px;padding:4px;border:1px solid var(--line);gap:2px}
 .segmented button{border:none;background:transparent;padding:8px 16px;border-radius:9999px;font-weight:700;font-size:0.82rem;color:var(--ink-soft);cursor:pointer;font-family:inherit}
 .segmented button.active{background:var(--ink);color:#fff}
-
 .divider{height:1px;background:var(--line)}
-
-/* Instruments */
 .instrument-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .instrument-head h2{font-size:1.4rem;font-weight:800;letter-spacing:-0.01em}
 .instrument-head .tag{font-size:0.72rem;font-weight:700;padding:5px 12px;border-radius:9999px}
 .tag.dark{background:var(--ink);color:#fff}
 .tag.re{background:var(--re);color:#fff}
-
-.tile-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-@media(max-width:900px){.tile-row{grid-template-columns:repeat(2,1fr)}}
-.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px;display:flex;flex-direction:column;gap:8px;min-height:128px;justify-content:space-between}
+.tile-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:900px){.tile-row{grid-template-columns:repeat(1,1fr)}}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px;display:flex;flex-direction:column;gap:8px;min-height:120px;justify-content:space-between}
 .tile.feat{background:var(--ink);border-color:var(--ink);color:#fff}
 .tile-top{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
 .tile-label{font-size:0.72rem;font-weight:600;color:var(--ink-soft)}
@@ -57,8 +50,6 @@ body{background:var(--stage);color:var(--ink);padding:28px 16px;line-height:1.4}
 .tile-tag{font-size:0.68rem;font-weight:700;color:var(--ink-soft);white-space:nowrap}
 .tile.feat .tile-tag{color:#c9c9c9}
 .tile-val{font-size:1.5rem;font-weight:800;letter-spacing:-0.01em;font-variant-numeric:tabular-nums}
-
-/* Chart */
 .chart-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:20px;display:flex;flex-direction:column;gap:14px}
 .chart-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
 .chart-title{font-weight:700;font-size:1rem}
@@ -68,32 +59,25 @@ body{background:var(--stage);color:var(--ink);padding:28px 16px;line-height:1.4}
 .canvas-wrap{position:relative;height:340px}
 @media(max-width:640px){.canvas-wrap{height:260px}}
 canvas{width:100%;height:100%;display:block;cursor:crosshair}
-#tooltip{position:absolute;background:var(--ink);color:#fff;border-radius:10px;padding:10px 14px;font-size:0.78rem;line-height:1.5;pointer-events:none;display:none;z-index:20;max-width:230px}
-
-/* Controls */
-.controls{display:grid;grid-template-columns:1.4fr 1fr;gap:18px}
+#tooltip{position:absolute;background:var(--ink);color:#fff;border-radius:10px;padding:10px 14px;font-size:0.78rem;line-height:1.5;pointer-events:none;display:none;z-index:20;max-width:250px}
+.controls{display:grid;grid-template-columns:1fr 1.6fr;gap:18px}
 @media(max-width:900px){.controls{grid-template-columns:1fr}}
-.sliders{background:var(--panel-alt);border:1px solid var(--line);border-radius:var(--radius-sm);padding:20px;display:flex;flex-direction:column;gap:16px}
+.sliders{background:var(--panel-alt);border:1px solid var(--line);border-radius:var(--radius-sm);padding:20px;display:flex;flex-direction:column;justify-content:center;gap:10px}
 .ctrl-top{display:flex;justify-content:space-between;font-size:0.82rem;margin-bottom:6px}
 .ctrl-name{font-weight:600}
 .ctrl-val{font-weight:800;background:var(--card);border:1px solid var(--line);border-radius:7px;padding:2px 9px;font-variant-numeric:tabular-nums}
 input[type=range]{-webkit-appearance:none;width:100%;height:6px;background:var(--line);border-radius:9999px;cursor:pointer}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--ink);border:3px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer}
-#sl-vacancy::-webkit-slider-thumb{background:var(--re)}
-
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--re);border:3px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer}
 .info-stack{display:flex;flex-direction:column;gap:12px}
-.info-card{border-radius:var(--radius-sm);padding:16px;font-size:0.8rem;line-height:1.6;border-left:4px solid var(--ink)}
+.info-card{border-radius:var(--radius-sm);padding:16px;font-size:0.8rem;line-height:1.6;border-left:4px solid var(--ink);background:var(--panel-alt);border:1px solid var(--line)}
 .info-card.re-card{border-left-color:var(--re)}
-.info-card{background:var(--panel-alt);border:1px solid var(--line)}
-
-/* Table */
 .table-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);padding:20px;display:flex;flex-direction:column;gap:12px}
 .table-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center}
 .table-title{font-weight:700;font-size:1rem}
 .table-scroller{overflow:auto;max-height:460px;border:1px solid var(--line);border-radius:14px}
 table{width:100%;border-collapse:collapse;font-size:0.8rem;text-align:right}
 thead th{background:var(--ink);color:#fff;padding:12px 14px;position:sticky;top:0;white-space:nowrap;font-weight:700}
-thead th:first-child{text-align:left;border-radius:0}
+thead th:first-child{text-align:left}
 tbody td{padding:9px 14px;border-bottom:1px solid var(--line-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
 tbody td:first-child{text-align:left;font-weight:700}
 tbody tr:hover{background:var(--panel-alt)}
@@ -108,71 +92,69 @@ tfoot td:first-child{text-align:left}
     <div class="topbar">
       <div class="brand"><div class="brand-dot"></div><div class="brand-name">RF vs Real&nbsp;Estate</div></div>
       <div class="badges">
-        <div class="badge">33% DLK · 33% TAMAR · 34% Boncer TZXM9</div>
-        <div class="badge">TC Base A3500: 1519</div>
-        <div class="badge">Inversión inicial: USD 100.515</div>
+        <div class="badge">Inflación: 18% / 17% / 17% / 15% (año 1-4)</div>
+        <div class="badge">TC inicial: 1.540 ARS/USD</div>
+        <div class="badge">RF: desemb. bruto USD 100.503 → neto USD 100.000</div>
+        <div class="badge">Depto: desemb. bruto USD 106.500 (100.000 + 6,5% costos)</div>
       </div>
     </div>
 
     <div class="hero">
-      <div class="hero-label">Diferencial acumulado, cash retirado para vivir (Portafolio RF − NOI Caballito)</div>
+      <div class="hero-label">Diferencial real acumulado (Renta Fija − Alquiler), en pesos constantes del mes 1</div>
       <div class="hero-number" id="hero-spread">$ 0</div>
+      <div class="hero-verdict" id="hero-verdict">—</div>
       <div class="hero-foot">
-        <div class="hero-note">Base USD 100.000 en t=0 · sin reinversión · stress test inmobiliario activo</div>
+        <div class="hero-note">Cashflows deflactados por el mismo índice inflacionario usado para indexar ambos instrumentos</div>
         <div class="segmented" id="horizon-seg">
           <button data-v="24">24m</button>
-          <button data-v="36" class="active">36m</button>
-          <button data-v="48">48m</button>
+          <button data-v="48" class="active">48m</button>
         </div>
       </div>
-      <input type="hidden" id="sl-horizon" value="36">
+      <input type="hidden" id="sl-horizon" value="48">
     </div>
 
     <div class="divider"></div>
 
-    <div class="instrument-head"><h2>Portafolio Tripartito</h2><span class="tag dark">DLK + TAMAR + Boncer CER</span></div>
+    <div class="instrument-head"><h2>Renta Fija — TX31</h2><span class="tag dark">Capital CER + TIR 11,32% real · cupón semestral Jun/Dic</span></div>
     <div class="tile-row">
-      <div class="tile"><div class="tile-top"><span class="tile-label">Capital efectivo invertido</span></div><span class="tile-val" id="kpi-tri-entry">-</span><span class="tile-tag">neto 0,5% fee ALyC</span></div>
-      <div class="tile"><div class="tile-top"><span class="tile-label">Renta mensual promedio</span></div><span class="tile-val" id="kpi-tri-avg">-</span><span class="tile-tag">consumida mes a mes</span></div>
-      <div class="tile feat"><div class="tile-top"><span class="tile-label">Total retirado acumulado</span></div><span class="tile-val" id="kpi-tri-total">-</span><span class="tile-tag">cash flow para vivir</span></div>
-      <div class="tile"><div class="tile-top"><span class="tile-label">Valuación capital final</span></div><span class="tile-val" id="kpi-tri-val">-</span><span class="tile-tag">CER+DLK+TAMAR netos</span></div>
+      <div class="tile"><div class="tile-top"><span class="tile-label">Capital indexado inicial</span></div><span class="tile-val" id="kpi-rf-entry">-</span><span class="tile-tag">Inversión inicial: USD 100.503 bruto → 100.000 netos (0,5% comisión ALyC) × TC 1.540</span></div>
+      <div class="tile feat"><div class="tile-top"><span class="tile-label">Cupón real (cada 6 meses)</span></div><span class="tile-val" id="kpi-rf-coupon">-</span><span class="tile-tag">constante en términos reales</span></div>
+      <div class="tile"><div class="tile-top"><span class="tile-label">Total cobrado real acumulado</span></div><span class="tile-val" id="kpi-rf-total">-</span><span class="tile-tag">pesos constantes mes 1</span></div>
     </div>
 
-    <div class="instrument-head"><h2>Depto Caballito 2 amb.</h2><span class="tag re">Stress test activo</span></div>
+    <div class="instrument-head"><h2>Depto Caballito — Alquiler indexado</h2><span class="tag re">Ajuste semestral, rezago 2 meses</span></div>
     <div class="tile-row">
-      <div class="tile"><div class="tile-top"><span class="tile-label">Compra base (USD 2.420/m²)</span></div><span class="tile-val" id="kpi-re-entry">-</span><span class="tile-tag">39m² · 6,5% cierre incl.</span></div>
-      <div class="tile"><div class="tile-top"><span class="tile-label">NOI mensual promedio</span></div><span class="tile-val" id="kpi-re-avg">-</span><span class="tile-tag">neto vacancia+expensas</span></div>
-      <div class="tile feat"><div class="tile-top"><span class="tile-label">Total alquileres netos</span></div><span class="tile-val" id="kpi-re-total">-</span><span class="tile-tag">flujo real de bolsillo</span></div>
-      <div class="tile"><div class="tile-top"><span class="tile-label">Valuación inmueble final</span></div><span class="tile-val" id="kpi-re-val">-</span><span class="tile-tag">+2,5% anual</span></div>
+      <div class="tile"><div class="tile-top"><span class="tile-label">Alquiler inicial (mes 1)</span></div><span class="tile-val" id="kpi-re-entry">-</span><span class="tile-tag">Inversión inicial: USD 106.500 (100.000 depto + 6,5% gastos de escritura)</span></div>
+      <div class="tile feat"><div class="tile-top"><span class="tile-label">Alquiler real, último mes</span></div><span class="tile-val" id="kpi-re-final">-</span><span class="tile-tag">erosión por rezago de 2 meses</span></div>
+      <div class="tile"><div class="tile-top"><span class="tile-label">Total cobrado real acumulado</span></div><span class="tile-val" id="kpi-re-total">-</span><span class="tile-tag">pesos constantes mes 1</span></div>
     </div>
 
     <div class="chart-card">
       <div class="chart-top">
-        <span class="chart-title">Flujo mensual retirado para vivir</span>
-        <div class="legend"><span><span class="dot" style="background:var(--tri)"></span>Tripartito (ARS)</span><span><span class="dot" style="background:var(--re)"></span>NOI Caballito (ARS)</span></div>
+        <span class="chart-title">Cashflow mensual deflactado (pesos constantes del mes 1)</span>
+        <div class="legend">
+          <span><span class="dot" style="background:var(--tri)"></span>Cupón Renta Fija (real)</span>
+          <span><span class="dot" style="background:var(--re)"></span>Alquiler (real)</span>
+        </div>
       </div>
       <div class="canvas-wrap"><canvas id="flowCanvas"></canvas><div id="tooltip"></div></div>
     </div>
 
     <div class="controls">
       <div class="sliders">
-        <div class="ctrl-group"><div class="ctrl-top"><span class="ctrl-name">Stress test: vacancia adicional</span><span class="ctrl-val" id="val-vacancy">0%</span></div><input type="range" id="sl-vacancy" min="0" max="20" step="1" value="0"></div>
-        <div class="ctrl-group"><div class="ctrl-top"><span class="ctrl-name">Rendimiento real TZXM9 (% s/CER)</span><span class="ctrl-val" id="val-cer-rate">10,9%</span></div><input type="range" id="sl-cer-rate" min="5" max="15" step="0.1" value="10.9"></div>
-        <div class="ctrl-group"><div class="ctrl-top"><span class="ctrl-name">Inflación anual proyectada IPC/CER</span><span class="ctrl-val" id="val-ipc">18,0%</span></div><input type="range" id="sl-ipc" min="8" max="40" step="1" value="18.0"></div>
-        <div class="ctrl-group"><div class="ctrl-top"><span class="ctrl-name">Tasa TAMAR + spread (TNA)</span><span class="ctrl-val" id="val-tamar">26,0%</span></div><input type="range" id="sl-tamar" min="15" max="45" step="0.5" value="26.0"></div>
-        <div class="ctrl-group"><div class="ctrl-top"><span class="ctrl-name">Crawling peg mensual DLK</span><span class="ctrl-val" id="val-crawl">1,5%</span></div><input type="range" id="sl-crawl" min="0" max="4" step="0.1" value="1.5"></div>
+        <div class="ctrl-group"><div class="ctrl-top"><span class="ctrl-name">Vacancia (repartida en todo el contrato)</span><span class="ctrl-val" id="val-vacancy">0%</span></div><input type="range" id="sl-vacancy" min="0" max="20" step="1" value="0"></div>
       </div>
       <div class="info-stack">
-        <div class="info-card re-card"><strong>Stress test inmobiliario:</strong> -10% fijo por expensas extraordinarias y mantenimiento · Mes 25 con vacancia total ($0) · Vacancia estructural regulable 0-20%.</div>
-        <div class="info-card"><strong>Ponderación tripartita:</strong> 33% DLK (cobertura A3500) · 33% TAMAR (tasa flotante mayorista) · 34% Boncer TZXM9 (CER + 10,9% real).</div>
+        <div class="info-card"><strong>TX31:</strong> capital se indexa 100% por CER todos los meses; el cupón (TIR 11,32% anual sobre capital indexado) se cobra semestralmente en junio y diciembre. Sin amortización — se asume reinversión en instrumento análogo.</div>
+        <div class="info-card re-card"><strong>Alquiler:</strong> arranca en $870.000, ajusta cada 6 meses (jul y ene) tomando la inflación de los 6 meses previos con 2 meses de rezago. El primer ajuste usa la tasa anualizada del año 1 para el tramo previo al inicio del contrato.</div>
       </div>
     </div>
 
     <div class="table-card">
-      <div class="table-top"><span class="table-title">Cronograma comparativo mes a mes</span><span class="hero-note">Valores en ARS retirados para vivir</span></div>
+      <div class="table-top"><span class="table-title">Cronograma comparativo mes a mes</span><span class="hero-note">Nominal en ARS corrientes · Real en pesos constantes del mes 1</span></div>
       <div class="table-scroller">
         <table>
-          <thead><tr><th>Mes</th><th>DLK (33%)</th><th>TAMAR (33%)</th><th>Boncer TZXM9 (34%)</th><th>Total Port. RF</th><th>NOI Caballito</th><th>Diferencial</th><th>Acum. RF</th><th>Acum. RE</th></tr></thead>
+          <thead><tr><th>Mes</th><th>Alquiler Nominal</th><th>Alquiler Real</th><th>Cupón RF Nominal</th><th>Cupón RF Real</th><th>Diferencial Real</th><th>Acum. Real RF</th><th>Acum. Real RE</th></tr></thead>
           <tbody id="table-body"></tbody>
           <tfoot id="table-foot"></tfoot>
         </table>
@@ -182,19 +164,35 @@ tfoot td:first-child{text-align:left}
 </div>
 
 <script>
-const dlkCoupons=[0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175,0.025,0.020,0.0175];
+const inflationRates=[0.18,0.17,0.17,0.15];
+function yearOf(m){return Math.min(4,Math.ceil(m/12));}
+function monthlyRate(m){return Math.pow(1+inflationRates[yearOf(m)-1],1/12)-1;}
+function buildIndex(maxM){
+  const idx={}; idx[0]=1; idx[-1]=1/(1+monthlyRate(1));
+  for(let m=1;m<=maxM;m++){ idx[m]=idx[m-1]*(1+monthlyRate(m)); }
+  return idx;
+}
+function buildRent(idx,maxM){
+  const rent={}; let level=870000;
+  for(let m=1;m<=maxM;m++){
+    if(m>=7 && (m-7)%6===0){
+      const infl6=idx[m-2]/idx[m-8]-1;
+      level=level*(1+infl6);
+    }
+    rent[m]=level;
+  }
+  return rent;
+}
 
-const slHorizon=document.getElementById('sl-horizon'),slVacancy=document.getElementById('sl-vacancy'),slCerRate=document.getElementById('sl-cer-rate'),slIpc=document.getElementById('sl-ipc'),slTamar=document.getElementById('sl-tamar'),slCrawl=document.getElementById('sl-crawl');
-const valVacancy=document.getElementById('val-vacancy'),valCerRate=document.getElementById('val-cer-rate'),valIpc=document.getElementById('val-ipc'),valTamar=document.getElementById('val-tamar'),valCrawl=document.getElementById('val-crawl');
-const kpiTriEntry=document.getElementById('kpi-tri-entry'),kpiTriAvg=document.getElementById('kpi-tri-avg'),kpiTriTotal=document.getElementById('kpi-tri-total'),kpiTriVal=document.getElementById('kpi-tri-val');
-const kpiReEntry=document.getElementById('kpi-re-entry'),kpiReAvg=document.getElementById('kpi-re-avg'),kpiReTotal=document.getElementById('kpi-re-total'),kpiReVal=document.getElementById('kpi-re-val');
+const slHorizon=document.getElementById('sl-horizon'),slVacancy=document.getElementById('sl-vacancy'),valVacancy=document.getElementById('val-vacancy');
+const kpiRfEntry=document.getElementById('kpi-rf-entry'),kpiRfCoupon=document.getElementById('kpi-rf-coupon'),kpiRfTotal=document.getElementById('kpi-rf-total');
+const kpiReEntry=document.getElementById('kpi-re-entry'),kpiReFinal=document.getElementById('kpi-re-final'),kpiReTotal=document.getElementById('kpi-re-total');
 const tableBody=document.getElementById('table-body'),tableFoot=document.getElementById('table-foot');
 const canvas=document.getElementById('flowCanvas'),ctx=canvas.getContext('2d'),tooltip=document.getElementById('tooltip');
-const heroSpread=document.getElementById('hero-spread');
+const heroSpread=document.getElementById('hero-spread'),heroVerdict=document.getElementById('hero-verdict');
 let currentMonthlyData=[];
 
 function fmtARS(v){return '$'+Math.round(v).toLocaleString('es-AR');}
-function fmtUSD(v){return 'USD '+Math.round(v).toLocaleString('en-US');}
 
 document.querySelectorAll('#horizon-seg button').forEach(btn=>{
   btn.addEventListener('click',()=>{
@@ -208,80 +206,52 @@ document.querySelectorAll('#horizon-seg button').forEach(btn=>{
 function recalculate(){
   const horizon=parseInt(slHorizon.value);
   const vacancyRate=parseFloat(slVacancy.value)/100;
-  const cerSpread=parseFloat(slCerRate.value)/100;
-  const annualIpc=parseFloat(slIpc.value)/100;
-  const tamarRate=parseFloat(slTamar.value)/100;
-  const crawlRate=parseFloat(slCrawl.value)/100;
-
-  const mep=1540, a3500Base=1519, initialRent=870000, deptoPurchasePriceUSD=94380;
-
   valVacancy.innerText=(vacancyRate*100).toFixed(0)+'%';
-  valCerRate.innerText=(cerSpread*100).toFixed(1).replace('.',',')+'%';
-  valIpc.innerText=(annualIpc*100).toFixed(1).replace('.',',')+'%';
-  valTamar.innerText=(tamarRate*100).toFixed(1).replace('.',',')+'%';
-  valCrawl.innerText=(crawlRate*100).toFixed(1).replace('.',',')+'%';
 
-  const grossCapitalARS=100000*mep;
-  const netCapitalTripartito=grossCapitalARS*(1-0.005);
-  const poolDLK_ARS=netCapitalTripartito*0.33, poolTAMAR_ARS=netCapitalTripartito*0.33, poolCER_ARS=netCapitalTripartito*0.34;
-  const dlkFaceUSD=poolDLK_ARS/a3500Base;
-  const monthlyIpcRate=Math.pow(1+annualIpc,1/12)-1;
-  const tamarQuarterlyPayment=poolTAMAR_ARS*(tamarRate/4);
+  const capitalRF_ARS=100000*1540, realRate=0.1132;
+  const idx=buildIndex(48);
+  const rentSchedule=buildRent(idx,48);
 
-  kpiTriEntry.innerText=fmtARS(netCapitalTripartito);
-  kpiReEntry.innerText=fmtUSD(deptoPurchasePriceUSD);
+  kpiRfEntry.innerText=fmtARS(capitalRF_ARS);
+  kpiRfCoupon.innerText=fmtARS(capitalRF_ARS*(realRate/2));
+  kpiReEntry.innerText=fmtARS(870000);
 
   currentMonthlyData=[];
-  let cumTri=0,cumRe=0,sumDlk=0,sumTamar=0,sumCer=0,sumSpread=0;
+  let cumRealRF=0,cumRealRE=0,cumNomRF=0,cumNomRE=0;
   tableBody.innerHTML=''; tableFoot.innerHTML='';
 
   for(let m=1;m<=horizon;m++){
-    const tcProyectado=a3500Base*Math.pow(1+crawlRate,m);
-    const couponDlk=dlkCoupons[m-1];
-    const dlkARS=(dlkFaceUSD*(couponDlk/4))*tcProyectado;
-    const tamarARS=tamarQuarterlyPayment;
-    const cerFactor=Math.pow(1+monthlyIpcRate,m);
-    const adjustedCerPrincipal=poolCER_ARS*cerFactor;
-    const cerARS=adjustedCerPrincipal*(cerSpread/12);
-    const totalTriMonth=dlkARS+tamarARS+cerARS;
+    const rentNominal=rentSchedule[m]*(1-vacancyRate);
+    const rentReal=rentNominal/idx[m];
+    const isCoupon=(m%6===0);
+    const capIndexed=capitalRF_ARS*idx[m];
+    const couponNominal=isCoupon?capIndexed*(realRate/2):0;
+    const couponReal=isCoupon?capitalRF_ARS*(realRate/2):0;
 
-    const currentYear=Math.floor((m-1)/12);
-    let grossRent=initialRent*Math.pow(1+annualIpc,currentYear);
-    let effectiveRent=grossRent;
-    if(m===25){effectiveRent=0;}else{effectiveRent*=0.90; effectiveRent*=(1-vacancyRate);}
+    cumRealRF+=couponReal; cumRealRE+=rentReal;
+    cumNomRF+=couponNominal; cumNomRE+=rentNominal;
+    const spreadReal=couponReal-rentReal;
 
-    cumTri+=totalTriMonth; cumRe+=effectiveRent;
-    const spread=totalTriMonth-effectiveRent;
-    sumDlk+=dlkARS; sumTamar+=tamarARS; sumCer+=cerARS; sumSpread+=spread;
-
-    currentMonthlyData.push({m,tri:totalTriMonth,dlk:dlkARS,tamar:tamarARS,cer:cerARS,re:effectiveRent,spread,cumTri,cumRe});
+    currentMonthlyData.push({m,rfReal:couponReal,rfNom:couponNominal,reReal:rentReal,reNom:rentNominal,spreadReal,cumRealRF,cumRealRE,isCoupon});
 
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td>M${m}</td><td>${fmtARS(dlkARS)}</td><td>${fmtARS(tamarARS)}</td><td>${fmtARS(cerARS)}</td><td style="font-weight:700">${fmtARS(totalTriMonth)}</td><td style="color:${effectiveRent===0?'var(--bad)':'inherit'}">${fmtARS(effectiveRent)}</td><td style="color:${spread>=0?'var(--good)':'var(--bad)'};font-weight:700">${fmtARS(spread)}</td><td>${fmtARS(cumTri)}</td><td>${fmtARS(cumRe)}</td>`;
+    tr.innerHTML='<td>M'+m+'</td><td>'+fmtARS(rentNominal)+'</td><td>'+fmtARS(rentReal)+'</td><td>'+(isCoupon?fmtARS(couponNominal):'—')+'</td><td>'+(isCoupon?fmtARS(couponReal):'—')+'</td><td style="color:'+(spreadReal>=0?'var(--good)':'var(--bad)')+';font-weight:700">'+fmtARS(spreadReal)+'</td><td>'+fmtARS(cumRealRF)+'</td><td>'+fmtARS(cumRealRE)+'</td>';
     tableBody.appendChild(tr);
   }
 
+  const totalSpread=cumRealRF-cumRealRE;
   const tf=document.createElement('tr');
-  tf.innerHTML=`<td>TOTALES</td><td>${fmtARS(sumDlk)}</td><td>${fmtARS(sumTamar)}</td><td>${fmtARS(sumCer)}</td><td style="font-weight:800">${fmtARS(cumTri)}</td><td style="font-weight:800">${fmtARS(cumRe)}</td><td style="color:${sumSpread>=0?'var(--good)':'var(--bad)'};font-weight:800">${fmtARS(sumSpread)}</td><td>${fmtARS(cumTri)}</td><td>${fmtARS(cumRe)}</td>`;
+  tf.innerHTML='<td>TOTALES</td><td>'+fmtARS(cumNomRE)+'</td><td>'+fmtARS(cumRealRE)+'</td><td>'+fmtARS(cumNomRF)+'</td><td>'+fmtARS(cumRealRF)+'</td><td style="color:'+(totalSpread>=0?'var(--good)':'var(--bad)')+';font-weight:800">'+fmtARS(totalSpread)+'</td><td>'+fmtARS(cumRealRF)+'</td><td>'+fmtARS(cumRealRE)+'</td>';
   tableFoot.appendChild(tf);
 
-  const tcA3500_End=a3500Base*Math.pow(1+crawlRate,horizon);
-  const dlkCapital_End=dlkFaceUSD*tcA3500_End;
-  const tamarCapital_End=poolTAMAR_ARS;
-  const cerCapital_End=poolCER_ARS*Math.pow(1+monthlyIpcRate,horizon);
-  const netTriVal_End=(dlkCapital_End+tamarCapital_End+cerCapital_End)*(1-0.005);
-  const years=horizon/12;
-  const deptoValUSD_End=deptoPurchasePriceUSD*Math.pow(1+0.025,years);
+  const last=currentMonthlyData[currentMonthlyData.length-1];
+  kpiReFinal.innerText=fmtARS(last.reReal);
+  kpiRfTotal.innerText=fmtARS(cumRealRF);
+  kpiReTotal.innerText=fmtARS(cumRealRE);
 
-  kpiTriAvg.innerText=fmtARS(cumTri/horizon);
-  kpiTriTotal.innerText=fmtARS(cumTri);
-  kpiTriVal.innerText=fmtARS(netTriVal_End);
-  kpiReAvg.innerText=fmtARS(cumRe/horizon);
-  kpiReTotal.innerText=fmtARS(cumRe);
-  kpiReVal.innerText=fmtUSD(deptoValUSD_End);
-
-  heroSpread.innerText=fmtARS(sumSpread);
-  heroSpread.style.color=sumSpread>=0?'#5a5a54':'var(--bad)';
+  heroSpread.innerText=fmtARS(totalSpread);
+  heroSpread.style.color=totalSpread>=0?'#5a5a54':'var(--bad)';
+  heroVerdict.innerText=totalSpread>=0?'→ Conviene la cartera de Renta Fija (TX31)':'→ Conviene el Depto Caballito';
 
   drawChart(currentMonthlyData);
 }
@@ -302,7 +272,7 @@ function drawChart(data){
   const isMobile=w<540;
   const padLeft=isMobile?52:72, padRight=isMobile?10:20, padTop=24, padBottom=34;
   const plotW=Math.max(10,w-padLeft-padRight), plotH=Math.max(10,h-padTop-padBottom);
-  const maxVal=Math.max(...data.map(d=>Math.max(d.tri,d.re)))*1.2;
+  const maxVal=Math.max(...data.map(d=>Math.max(d.rfReal,d.reReal)))*1.2;
 
   ctx.strokeStyle='#e8e8e3'; ctx.lineWidth=1; ctx.fillStyle='#6b6b66';
   ctx.font=(isMobile?'10px':'11px')+" Inter, sans-serif"; ctx.textAlign='right';
@@ -310,16 +280,16 @@ function drawChart(data){
   for(let i=0;i<=steps;i++){
     const v=(maxVal/steps)*i; const y=padTop+plotH-(i/steps)*plotH;
     ctx.beginPath(); ctx.moveTo(padLeft,y); ctx.lineTo(w-padRight,y); ctx.stroke();
-    ctx.fillText('$'+(v/1000000).toFixed(1)+'M', padLeft-6, y+4);
+    ctx.fillText('$'+Math.round(v).toLocaleString('es-AR'), padLeft-6, y+4);
   }
 
   const n=data.length; const barGroupW=plotW/n; const bw=Math.max(2,barGroupW*0.42); const gap=Math.max(1,barGroupW*0.04);
   data.forEach((d,idx)=>{
     const groupStart=padLeft+idx*barGroupW+(barGroupW-(bw*2+gap))/2;
-    const hTri=(d.tri/maxVal)*plotH;
-    ctx.fillStyle='#111111'; ctx.fillRect(groupStart, padTop+plotH-hTri, bw, hTri);
-    const hRe=(d.re/maxVal)*plotH;
-    ctx.fillStyle=d.re===0?'#dc2626':'#FF4419'; ctx.fillRect(groupStart+bw+gap, padTop+plotH-hRe, bw, hRe);
+    const hRf=(d.rfReal/maxVal)*plotH;
+    ctx.fillStyle=d.isCoupon?'#111111':'#d8d8d2'; ctx.fillRect(groupStart, padTop+plotH-Math.max(hRf,d.isCoupon?hRf:2), bw, Math.max(hRf,d.isCoupon?hRf:2));
+    const hRe=(d.reReal/maxVal)*plotH;
+    ctx.fillStyle='#FF4419'; ctx.fillRect(groupStart+bw+gap, padTop+plotH-hRe, bw, hRe);
     let labelInterval=2;
     if(w<420)labelInterval=6; else if(w<640)labelInterval=4; else if(n>36)labelInterval=4; else if(n>24)labelInterval=3;
     if((idx+1)%labelInterval===0||idx===0){
@@ -337,9 +307,9 @@ function handleInteraction(clientX,clientY){
   if(idx>=0&&idx<currentMonthlyData.length){
     const item=currentMonthlyData[idx];
     tooltip.style.display='block';
-    tooltip.innerHTML=`<strong>Mes ${item.m}</strong><br>Portafolio RF: ${fmtARS(item.tri)}<br><span style="opacity:.75">DLK ${fmtARS(item.dlk)} · TAMAR ${fmtARS(item.tamar)} · CER ${fmtARS(item.cer)}</span><br>NOI Caballito: ${fmtARS(item.re)}<br><strong>Diferencia: ${fmtARS(item.spread)}</strong>`;
+    tooltip.innerHTML='<strong>Mes '+item.m+'</strong><br>Alquiler — Nominal '+fmtARS(item.reNom)+' · Real '+fmtARS(item.reReal)+'<br>Cupón RF — '+(item.isCoupon?('Nominal '+fmtARS(item.rfNom)+' · Real '+fmtARS(item.rfReal)):'sin cupón este mes')+'<br><span style="opacity:.75">Diferencial real del mes: '+fmtARS(item.spreadReal)+'</span>';
     let tooltipX=mouseX+15, tooltipY=clientY-rect.top-30;
-    if(tooltipX+230>rect.width) tooltipX=Math.max(10,mouseX-240);
+    if(tooltipX+250>rect.width) tooltipX=Math.max(10,mouseX-260);
     if(tooltipY<10) tooltipY=clientY-rect.top+20;
     tooltip.style.left=tooltipX+'px'; tooltip.style.top=tooltipY+'px';
   }else{ tooltip.style.display='none'; }
@@ -351,7 +321,7 @@ canvas.addEventListener('touchmove',e=>{if(e.touches&&e.touches[0])handleInterac
 canvas.addEventListener('touchstart',e=>{if(e.touches&&e.touches[0])handleInteraction(e.touches[0].clientX,e.touches[0].clientY);},{passive:true});
 window.addEventListener('resize',()=>drawChart(currentMonthlyData));
 
-[slVacancy,slCerRate,slIpc,slTamar,slCrawl].forEach(el=>el.addEventListener('input',recalculate));
+slVacancy.addEventListener('input',recalculate);
 recalculate();
 </script>
 </body>
